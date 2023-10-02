@@ -33,21 +33,16 @@ const PatientDetail: React.FC<Props> = ({ patientId }) => {
     const icon = user?.gender === 'female' ? <ArrowDownwardIcon /> : <WcIcon />;
 
 
-    const descriptions: any[] = [];
+    const diagnosisCodeDescriptions: { [code: string]: string } = {};
 
     user?.entries.forEach(entry => {
         entry.diagnosisCodes?.forEach(diag => {
-            const matchedDiagnosis = diagnoses?.find(diagnosis => diagnosis.code === diag);
+            const matchedDiagnosis = diagnoses.find(diagnosis => diagnosis.code === diag);
             if (matchedDiagnosis) {
-                descriptions.push(matchedDiagnosis.name);
+                diagnosisCodeDescriptions[diag] = matchedDiagnosis.name;
             }
         });
     });
-
-
-
-
-
 
     return (
         <>
@@ -70,7 +65,7 @@ const PatientDetail: React.FC<Props> = ({ patientId }) => {
 
                                 return (
                                     <li key={diag}>
-                                        <strong>{diag}</strong> <p>{descriptions}</p>
+                                        <strong>{diag}</strong> <p>{diagnosisCodeDescriptions[diag]}</p>
                                     </li>
                                 );
                             })}
