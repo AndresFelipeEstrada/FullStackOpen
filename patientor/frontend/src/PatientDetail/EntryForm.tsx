@@ -1,5 +1,5 @@
-import { Form, Formik } from "formik";
-import { DiagnosisSelection } from "../AddPatientModal/FormField";
+import { Field, Form, Formik } from "formik";
+import { DiagnosisSelection, TextField } from "../AddPatientModal/FormField";
 import { Diagnosis, NewEntry } from "../types";
 
 interface Props {
@@ -29,7 +29,12 @@ const EntryForm = ({ onSubmit, diagnoses }: Props) => {
                 return (
                     <Form className="form ui">
 
-
+                        <Field
+                            label="Ingrese la descripcion"
+                            placeholder="Description"
+                            name="description"
+                            component={TextField}
+                        />
                         <DiagnosisSelection
                             setFieldValue={setFieldValue}
                             setFieldTouched={setFieldTouched}
