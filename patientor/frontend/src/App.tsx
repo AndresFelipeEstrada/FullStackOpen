@@ -5,7 +5,7 @@ import { Button, Divider, Container } from "@material-ui/core";
 import { Typography } from "@material-ui/core";
 
 import { apiBaseUrl } from "./constants";
-import { useStateValue,patientList } from "./state/index";
+import { useStateValue, patientList } from "./state/index";
 import { Patient } from "./types";
 
 import PatientListPage from "./PatientListPage";
@@ -21,7 +21,7 @@ const App = () => {
         const { data: patientListFromApi } = await axios.get<Patient[]>(
           `${apiBaseUrl}/patients`
         );
-        dispatch(patientList(patientListFromApi)); 
+        dispatch(patientList(patientListFromApi));
       } catch (e) {
         console.error(e);
       }
@@ -32,7 +32,7 @@ const App = () => {
   const match = useMatch('/patient/:id');
 
   const id = match?.params.id;
-  
+
 
   return (
     <div className="App">

@@ -5,12 +5,11 @@ import { TableCell } from "@material-ui/core";
 import { TableRow } from "@material-ui/core";
 import { TableBody } from "@material-ui/core";
 
-import { PatientFormValues } from "../AddPatientModal/AddPatientForm";
 import AddPatientModal from "../AddPatientModal";
-import { Patient } from "../types";
+import { Patient, PatientFormValues } from "../types";
 import { apiBaseUrl } from "../constants";
 import HealthRatingBar from "../components/HealthRatingBar";
-import { useStateValue,addPatient } from "../state";
+import { useStateValue, addPatient } from "../state";
 import { useNavigate } from "react-router-dom";
 
 const PatientListPage = () => {
@@ -65,7 +64,7 @@ const PatientListPage = () => {
         </TableHead>
         <TableBody>
           {Object.values(patients).map((patient: Patient) => (
-            <TableRow key={`patient-list-${patient.id}`} onClick={()=> navigate(`/patient/${patient.id}`)} style={{cursor:'pointer'}}>
+            <TableRow key={`patient-list-${patient.id}`} onClick={() => navigate(`/patient/${patient.id}`)} style={{ cursor: 'pointer' }}>
               <TableCell>{patient.name}</TableCell>
               <TableCell>{patient.gender}</TableCell>
               <TableCell>{patient.occupation}</TableCell>

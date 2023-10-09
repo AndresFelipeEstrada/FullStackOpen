@@ -91,7 +91,7 @@ export const NumberField = ({ field, label, min, max }: NumberProps) => {
           if (value > max) setValue(max);
           else if (value <= min) setValue(min);
           else setValue(Math.floor(value));
-      }}
+        }}
       />
       <Typography variant="subtitle2" style={{ color: "red" }}>
         <ErrorMessage name={field.name} />
@@ -100,18 +100,14 @@ export const NumberField = ({ field, label, min, max }: NumberProps) => {
   );
 };
 
-export const DiagnosisSelection = ({
-  diagnoses,
-  setFieldValue,
-  setFieldTouched,
-}: {
+export const DiagnosisSelection = ({ diagnoses, setFieldValue, setFieldTouched, }: {
   diagnoses: Diagnosis[];
   setFieldValue: FormikProps<{ diagnosisCodes: string[] }>["setFieldValue"];
   setFieldTouched: FormikProps<{ diagnosisCodes: string[] }>["setFieldTouched"];
 }) => {
   const [selectedDiagnoses, setDiagnoses] = useState<string[]>([]);
   const field = "diagnosisCodes";
-  const onChange = (data: string[]) => {    
+  const onChange = (data: string[]) => {
     setDiagnoses([...data]);
     setFieldTouched(field, true);
     setFieldValue(field, selectedDiagnoses);

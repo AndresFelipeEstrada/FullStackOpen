@@ -1,6 +1,7 @@
 import { Router, type Request, type Response } from 'express'
-import { createNewPatient, getAllPatients, getOnePatient } from '../services/patients'
+import { createNewEntry, createNewPatient, getAllPatients, getOnePatient } from '../services/patients'
 import { validatePatients } from '../utils/validatePatients'
+import { validateEntries } from '../utils/validateEntries'
 
 const patientsRouter = Router()
 
@@ -26,6 +27,20 @@ patientsRouter.get('/:id', (req: Request, res: Response) => {
     res.status(201).json(patient)
   } catch (error) {
     console.log(error)
+  }
+})
+
+patientsRouter.post('/:id/entries', (req: Request, res: Response) => {
+  try {
+    const { id } = req.params
+    const body = { ...req.body }
+
+    const newEntry = validateEntries(body)
+
+    const createdEntry = createNewEntry(id, newEntry)
+    res.status(200).json(createdEntry)
+  } catch (error) {
+    if (error instanceof Error) { res.status(400).json({ message: error.message }) }
   }
 })
 

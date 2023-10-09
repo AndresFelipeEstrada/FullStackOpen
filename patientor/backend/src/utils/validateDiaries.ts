@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import { Weather, Visibility, type NewDiaryEntry } from '../types/diaryentries.types'
 
 const isVisibility = (param: any): boolean => {

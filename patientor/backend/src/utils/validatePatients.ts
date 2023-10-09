@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import { Gender, type NewPatient } from '../types/Patients.types'
 
 const isString = (string: any): boolean => {
@@ -9,7 +10,7 @@ const isGender = (gender: any): boolean => {
 }
 
 const parseOccupation = (occupationFromRequest: any): string => {
-  if (!occupationFromRequest || !isString(occupationFromRequest)) {
+  if (!(occupationFromRequest) || !isString(occupationFromRequest)) {
     throw new Error('Incorrect or missing occupation')
   }
   return occupationFromRequest
