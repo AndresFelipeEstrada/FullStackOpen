@@ -27,7 +27,8 @@ const PatientDetail: React.FC<Props> = ({ patientId }) => {
 
     const submitNewEntry = async (values: NewEntry) => {
         try {
-            const { data } = await axios.post<NewEntry>(`${apiBaseUrl}/${patientId}/entries`, values);
+            const { data } = await axios.post<NewEntry>(`${apiBaseUrl}/patients/${patientId}/entries`, values);
+            console.log(data);
         } catch (e: unknown) {
             if (axios.isAxiosError(e)) {
                 console.error(e?.response?.data || "Unrecognized axios error");

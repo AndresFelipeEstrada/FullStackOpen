@@ -41,7 +41,7 @@ interface HospitalEntry extends BaseEntry {
 }
 
 interface OccupationalHealthCareEntry extends BaseEntry {
-  sickLeave: sickLeave
+  sickLeave?: sickLeave
 }
 
 export type Entry = HealthCheckEntry | HospitalEntry | OccupationalHealthCareEntry

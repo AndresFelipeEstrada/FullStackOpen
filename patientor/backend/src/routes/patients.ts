@@ -35,6 +35,7 @@ patientsRouter.post('/:id/entries', (req: Request, res: Response) => {
     const { id } = req.params
     const body = { ...req.body }
 
+    console.log(body)
     const newEntry = validateEntries(body)
 
     const createdEntry = createNewEntry(id, newEntry)

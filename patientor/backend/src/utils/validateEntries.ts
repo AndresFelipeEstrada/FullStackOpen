@@ -10,16 +10,16 @@ const isNumber = (numero: any): boolean => {
   return typeof numero === 'number' || numero instanceof Number
 }
 
-const isDiagnosisCode = (code: any): boolean => {
-  return Dianoses.some(c => c.code === code)
-}
-
 const isHealthCheckRating = (rating: any): boolean => {
   return Object.values(HealthCheckRating).includes(rating)
 }
 
-const parseDiagnosisCodes = (diagnosisCodesFromRequest: any): string[] => {
-  if (!diagnosisCodesFromRequest || !isDiagnosisCode(diagnosisCodesFromRequest)) {
+const isDiagnosisCode = (code: string): boolean => {
+  return Dianoses.some(diagnosis => diagnosis.code === code)
+}
+
+const parseDiagnosisCodes = (diagnosisCodesFromRequest: any[]): string[] => {
+  if (!diagnosisCodesFromRequest?.every((code) => isDiagnosisCode(code))) {
     throw new Error('Incorrect or missing diagnosis code')
   }
 
