@@ -19,7 +19,7 @@ const AddNewEntry = ({ OpenModal, closeModal, diagnoses, error, onSubmit }: Prop
             <Divider />
             <DialogContent>
                 {error && <Alert severity="error">{`Error: ${error}`}</Alert>}
-                <EntryForm diagnoses={diagnoses} onSubmit={onSubmit} />
+                <EntryForm diagnoses={diagnoses} onSubmit={onSubmit} closeModal={closeModal} />
             </DialogContent>
 
         </Dialog>

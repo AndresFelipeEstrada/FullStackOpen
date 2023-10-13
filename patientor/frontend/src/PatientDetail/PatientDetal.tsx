@@ -21,14 +21,13 @@ const PatientDetail: React.FC<Props> = ({ patientId }) => {
 
 
     const openModal = (): void => setOpenModalEntry(true);
-    const closeModal = () => {
-        setOpenModalEntry(false);
-    };
+    const closeModal = (): void => setOpenModalEntry(false);
+
 
     const submitNewEntry = async (values: NewEntry) => {
         try {
             const { data } = await axios.post<NewEntry>(`${apiBaseUrl}/patients/${patientId}/entries`, values);
-            console.log(data);
+            closeModal();
         } catch (e: unknown) {
             if (axios.isAxiosError(e)) {
                 console.error(e?.response?.data || "Unrecognized axios error");
