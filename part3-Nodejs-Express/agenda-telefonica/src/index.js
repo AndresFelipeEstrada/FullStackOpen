@@ -1,64 +1,87 @@
+import "dotenv/config.js"
 import express from 'express'
-import data from './data.js'
+import morgan from "morgan"
+import { Phone } from "./mongo.js"
 
 const app = express()
+const PORT = process.env.PORT
+
 app.use(express.json())
+app.use(morgan('dev'))
 
-const PORT = 3001
+const errorHandler = (error, _request, response, next) => {
+  console.error(error.message)
 
+  if (error.name === 'CastError') {
+    return response.status(400).send({ error: 'malformatted id' })
+  }
 
-app.get('/api/persons', (_, res) => {
-  res.json(data)
-})
-
-app.get('/api/persons/:id', (req, res) => {
-  const { id } = req.params
-
-  const getUser = data.find(user => user.id === Number(id))
-
-  if (!getUser) return res.status(402).json({ error: 'User Not Found' })
-
-
-  return res.status(200).json({ user: getUser })
-})
-
-
-app.delete('/api/persons/:id', (req, res) => {
-  const id = Number(req.params.id)
-  const deletedUser = data.filter(user => user.id !== id)
-
-  if (!deletedUser) return res.json({ error: 'deleted user error' })
-
-
-  return res.json(deletedUser)
-})
-
-const getId = () => {
-  let generateId = data.length > 0 ? Math.max(...data.map(user => user.id)) : 0
-  return generateId + 1
+  next(error)
 }
 
-app.post('/api/persons', (req, res) => {
+const unknownEndpoint = (_request, response) => {
+  response.status(404).send({ error: 'unknown endpoint' })
+}
+// ALL USERS
+app.get('/api/persons', (_, res, next) => {
+  Phone.find({})
+    .then(result => res.json(result))
+    .catch(error => next(error))
+})
+
+// GET ONE USER
+app.get('/api/persons/:id', (req, res, next) => {
+  const { id } = req.params
+  Phone.findById(id)
+    .then(result => res.json(result))
+    .catch(error => next(error))
+})
+
+// DELETE USER
+app.delete('/api/persons/:id', (req, res, next) => {
+  Phone.findByIdAndDelete(req.params.id)
+    .then(result => res.status(204).json(result).end())
+    .catch(error => next(error))
+})
+
+// CREATE NEW USER
+app.post('/api/persons', (req, res, next) => {
   const body = req.body
+  if (!body.name) return res.json({ error: "no content" })
 
-  if (data.some(user => user.name === body.name)) {
-    return res.json({ error: "name must be unique" })
-  }
-
-  const createUser = {
-    id: getId(),
+  const newPhone = new Phone({
     name: body.name,
     number: body.number
+  })
+
+  newPhone.save()
+    .then(result => res.json(result))
+    .catch(error => next(error))
+})
+
+// UPDATE USER 
+app.put('/api/persons/:id', (req, res, next) => {
+  const body = req.body
+  const id = req.params.id
+
+  if (!body) {
+    res.json({ error: "not body" })
   }
 
-  data.push(createUser)
-  return res.json(data)
+  Phone.findByIdAndUpdate(id, body, { new: true })
+    .then(result => res.json(result))
+    .catch(error => next(error))
 })
 
 app.get('/info', (_req, res) => {
   const date = new Date()
-  res.send(`<h2>Phonebook has info for ${data.length} people </h2><br><h1>${date}</h1>`)
+  Phone.find({}).then(result => {
+    res.send(`<h2>Phonebook has info for ${result.length} people </h2><br><h1>${date}</h1>`)
+  })
 })
+
+app.use(errorHandler)
+app.use(unknownEndpoint)
 
 app.listen(PORT, () => {
   console.log(`Escuchando en el puerto: ${PORT}`)
