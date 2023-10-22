@@ -1,7 +1,7 @@
-import "dotenv/config.js"
+import 'dotenv/config.js'
 import express from 'express'
-import morgan from "morgan"
-import { Phone } from "./mongo.js"
+import morgan from 'morgan'
+import { Phone } from './mongo.js'
 
 const app = express()
 const PORT = process.env.PORT
@@ -10,10 +10,12 @@ app.use(express.json())
 app.use(morgan('dev'))
 
 const errorHandler = (error, _request, response, next) => {
-  console.error(error.message)
+  console.log(error.message)
 
   if (error.name === 'CastError') {
     return response.status(400).send({ error: 'malformatted id' })
+  } else if (error.name === 'ValidationError') {
+    return response.status(400).json({ error: error.message })
   }
 
   next(error)
@@ -47,7 +49,7 @@ app.delete('/api/persons/:id', (req, res, next) => {
 // CREATE NEW USER
 app.post('/api/persons', (req, res, next) => {
   const body = req.body
-  if (!body.name) return res.json({ error: "no content" })
+  if (!body.name) return res.json({ error: 'no name' })
 
   const newPhone = new Phone({
     name: body.name,
@@ -59,13 +61,13 @@ app.post('/api/persons', (req, res, next) => {
     .catch(error => next(error))
 })
 
-// UPDATE USER 
+// UPDATE USER
 app.put('/api/persons/:id', (req, res, next) => {
   const body = req.body
   const id = req.params.id
 
   if (!body) {
-    res.json({ error: "not body" })
+    res.json({ error: 'not body' })
   }
 
   Phone.findByIdAndUpdate(id, body, { new: true })

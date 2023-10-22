@@ -18,6 +18,8 @@ const errorHandler = (error, _request, response, next) => {
   console.log(error.message)
   if (error.name === 'CastError') {
     return response.status(400).send({ error: 'malformatted id' })
+  } else if (error.name === "ValidationError") {
+    return response.status(400).json({ error: error.message })
   }
 
   next(error)
@@ -30,7 +32,6 @@ const unknownEndpoint = (_request, response) => {
 
 app.use(express.json())
 app.use(requestLogger)
-
 // TODAS LAS NOTAS
 app.get('/api/notes', async (_req, res) => {
   try {
@@ -52,7 +53,7 @@ app.get('/api/notes/:id', (req, res, next) => {
 
 
 // AGREGAR NOTA
-app.post('/api/notes', (req, res) => {
+app.post('/api/notes', (req, res, next) => {
   const body = req.body
 
   if (!body.content) return res.status(400).json({ error: "Content missing" })
@@ -63,9 +64,9 @@ app.post('/api/notes', (req, res) => {
     date: new Date()
   })
 
-  note.save().then(result => {
-    res.json(result)
-  })
+  note.save()
+    .then(result => res.json(result))
+    .catch(error => next(error))
 })
 
 
