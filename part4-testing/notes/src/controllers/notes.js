@@ -1,5 +1,5 @@
-import { Router } from "express";
-import { Note } from '../models/note.js';
+import { Router } from 'express'
+import { Note } from '../models/note.js'
 
 const notesRouter = Router()
 
@@ -26,7 +26,7 @@ notesRouter.get('/:id', (req, res, next) => {
 notesRouter.post('/', (req, res, next) => {
   const body = req.body
 
-  if (!body.content) return res.status(400).json({ error: "Content missing" })
+  if (!body.content) return res.status(400).json({ error: 'Content missing' })
 
   const note = new Note({
     content: body.content,
@@ -59,6 +59,4 @@ notesRouter.delete('/:id', (req, res, next) => {
     .catch(error => next(error))
 })
 
-
 export default notesRouter
-

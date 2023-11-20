@@ -1,11 +1,11 @@
-import config from "./utils/config.js"
-import express from 'express';
-const app = express()
-import notesRouter from "./controllers/notes.js";
-import middleware from "./utils/middleware.js";
-import logger from "./utils/logger.js";
-import mongoose from "mongoose";
+import config from './utils/config.js'
+import express from 'express'
+import notesRouter from './controllers/notes.js'
+import middleware from './utils/middleware.js'
+import logger from './utils/logger.js'
+import mongoose from 'mongoose'
 
+const app = express()
 
 mongoose.connect(config.URL).then(_result => {
   logger.info('Connect to Database')
