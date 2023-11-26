@@ -1,6 +1,5 @@
 import { Router } from 'express'
-import { Note } from '../models/note.js'
-import logger from '../utils/logger.js'
+import { Note } from '../models/notes.js'
 
 const notesRouter = Router()
 
@@ -21,13 +20,11 @@ notesRouter.get('/', async (_req, res) => {
 notesRouter.get('/:id', async (req, res, next) => {
   try {
     const note = await Note.findById(req.params.id)
-    logger.info('nota: ', note)
     // if (!note) {
     //   logger.info('Nota no encontrada')
     //   return res.status(404).end()
     // }
 
-    logger.info('Nota encontrada', res.status)
     res.status(200).json(note)
   } catch (error) {
     next(error)

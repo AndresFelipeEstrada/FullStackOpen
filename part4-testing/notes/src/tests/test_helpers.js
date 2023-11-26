@@ -1,4 +1,4 @@
-import { Note } from '../models/note'
+import { Note } from '../models/notes'
 
 const initialNotes = [
   {
