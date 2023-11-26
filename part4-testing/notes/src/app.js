@@ -1,24 +1,30 @@
-import config from './utils/config.js'
+import 'dotenv/config'
+import './mongo.js'
+import { PORT } from './utils/config.js'
 import express from 'express'
 import notesRouter from './controllers/notes.js'
 import middleware from './utils/middleware.js'
 import logger from './utils/logger.js'
-import mongoose from 'mongoose'
+import cors from 'cors'
 
 const app = express()
 
-mongoose.connect(config.URL).then(_result => {
-  logger.info('Connect to Database')
-}).catch(error => {
-  logger.error('error connecting to mongoDB', error.message)
-})
-
+app.use(cors())
 app.use(express.json())
 app.use(middleware.requestLogger)
 
 app.use('/api/notes', notesRouter)
 
+app.get('/', (_req, res) => {
+  res.status(200).send('test')
+})
+
 app.use(middleware.errorHandler)
 app.use(middleware.unknownEndpoint)
 
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(PORT, () => {
+    logger.info(`Servidor escuchando en el puerto: ${PORT}`)
+  })
+}
 export default app

@@ -1,9 +1,5 @@
-import "dotenv/config.js";
+const { NODE_ENV, TEST_MONGODB_URI, MONGODB_URI, PORT } = process.env
 
-const PORT = process.env.PORT
-const URL = process.env.URL_DB
+const CONNECTION_STRING = NODE_ENV === 'test' ? TEST_MONGODB_URI : MONGODB_URI
 
-
-export default {
-  PORT, URL
-}
+export { PORT, CONNECTION_STRING }
