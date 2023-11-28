@@ -23,8 +23,7 @@ const nonExistingId = async () => {
 
 const notesInDb = async () => {
   const notes = await Note.find({})
-  const total = notes.map(note => note.toJSON())
-  return total
+  return notes.map(note => note.toJSON())
 }
 export default {
   initialNotes, nonExistingId, notesInDb

@@ -20,26 +20,25 @@ notesRouter.get('/', async (_req, res) => {
 notesRouter.get('/:id', async (req, res, next) => {
   try {
     const note = await Note.findById(req.params.id)
-    // if (!note) {
-    //   logger.info('Nota no encontrada')
-    //   return res.status(404).end()
-    // }
+
+    if (!note) return res.status(404).end()
 
     res.status(200).json(note)
   } catch (error) {
+    console.log('entra aqui?')
     next(error)
   }
 })
 
 // AGREGAR NOTA
 notesRouter.post('/', async (req, res, next) => {
-  const body = req.body
+  const { content, important } = req.body
 
-  if (!body.content) return res.status(400).json({ error: 'Content missing' })
+  if (!content) return res.status(400).json({ error: 'Content missing' })
 
   const note = new Note({
-    content: body.content,
-    important: body.important || false,
+    content,
+    important: important || false,
     date: new Date()
   })
 
