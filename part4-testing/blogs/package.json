@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon src/index.js",
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --verbose"
+    "test": "NODE_ENV=development node --experimental-vm-modules node_modules/jest/bin/jest.js --detectOpenHandles --silent --forceExit"
   },
   "jest": {
     "testEnvironment": "node"

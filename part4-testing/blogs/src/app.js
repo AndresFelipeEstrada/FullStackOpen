@@ -5,12 +5,12 @@ const app = express()
 import cors from 'cors'
 import blogsRouter from "./controller/blogs.js";
 import middlewares from "./utils/middlewares.js";
-import logger from "./utils/logger.js";
 
-connect(config.URL)
-  .then(_ => logger.info("conectado a la base de datos"))
-  .catch(error => logger.error(error))
-
+connect(config.URL).then(() => {
+  console.log('connected to MongoDB')
+}).catch((error) => {
+  console.log('error connecting to MongoDB:', error.message)
+})
 
 app.use(cors())
 app.use(express.json())
