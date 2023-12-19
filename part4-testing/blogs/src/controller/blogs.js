@@ -16,7 +16,6 @@ blogsRouter.get('/', async (_, res) => {
   }
 })
 
-
 blogsRouter.post('/', async (req, res) => {
   const body = req.body
 
