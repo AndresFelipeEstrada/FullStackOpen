@@ -20,10 +20,12 @@ usersRouter.post('/', async (req, res) => {
     name: body.name,
     password: passwordHash
   })
-
-  const savedUser = await user.save()
-
-  res.status(200).json(savedUser)
+  try {
+    const savedUser = await user.save()
+    res.status(200).json(savedUser)
+  } catch (error) {
+    console.log(error.message)
+  }
 })
 
 export default usersRouter

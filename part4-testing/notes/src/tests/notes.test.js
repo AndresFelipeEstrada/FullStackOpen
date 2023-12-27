@@ -1,5 +1,7 @@
 import { Note } from '../models/notes.js'
+import { User } from '../models/users.js'
 import helpers from './test_helpers.js'
+import bcrypt from 'bcrypt'
 
 beforeEach(async () => {
   await Note.deleteMany({})
@@ -51,7 +53,7 @@ describe('viewing a specific note', () => {
       .expect(404)
   })
 
-  test('fails with statuscode 400 id is isvalid', async () => {
+  test('fails with statuscode 400 id is is valid', async () => {
     const invalidId = '4353453535434534DS1DFSF'
 
     await helpers.api
@@ -62,13 +64,24 @@ describe('viewing a specific note', () => {
 
 describe('addition of a new note', () => {
   test('succeeds with valid data', async () => {
+    const user = {
+      username: 'camilo',
+      password: 'camilo123',
+      name: 'camilo andres'
+    }
+
+    await helpers.api.post('/api/users').send(user).expect(200)
+    const login = await helpers.api.post('/api/login').send(user).expect(200)
+
     const newNote = {
       content: 'nueva nota',
       important: true
     }
 
-    await helpers.api.post('/api/notes')
-      .send(newNote)
+    console.log('Token de autenticación:', login.body.token)
+
+    await helpers.api.post('/api/notes').send(newNote)
+      .set('Authorization', `bearer ${login.body.token}`)
       .expect(201)
       .expect('Content-Type', /application\/json/)
 
@@ -108,5 +121,35 @@ describe('deeletion of a note', () => {
 
     const contents = notesAtEnd.map(r => r.content)
     expect(contents).not.toContain(noteToDelete.content)
+  })
+})
+
+describe('when there is initially one user  in db', () => {
+  beforeEach(async () => {
+    await User.deleteMany({})
+    const passwordHash = await bcrypt.hash('sekret', 10)
+    const user = new User({ username: 'root', password: passwordHash })
+    await user.save()
+  })
+
+  test('creation succeeds with a fresh username', async () => {
+    const userAtStart = await helpers.usersInDb()
+
+    const newUser = {
+      username: 'user_test',
+      name: 'user test name',
+      password: 'testPassword'
+    }
+
+    await helpers.api.post('/api/users')
+      .send(newUser)
+      .expect(200)
+      .expect('Content-Type', /application\/json/)
+
+    const userAtEnd = await helpers.usersInDb()
+    expect(userAtEnd).toHaveLength(userAtStart.length + 1)
+
+    const usernames = userAtEnd.map(u => u.username)
+    expect(usernames).toContain(newUser.username)
   })
 })
