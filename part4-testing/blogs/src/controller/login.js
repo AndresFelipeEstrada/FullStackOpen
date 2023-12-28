@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt'
-import jwt from "jsonwebtoken"
-import { Router } from "express";
-import { User } from "../models/users.js";
+import jwt from 'jsonwebtoken'
+import { Router } from 'express'
+import { User } from '../models/users.js'
 
 const loginRouter = Router()
 
@@ -12,13 +12,13 @@ loginRouter.post('/', async (req, res) => {
 
   const user = await User.findOne({ username })
 
-  if (!user) return res.status(401).json({ error: "Credenciales incorrectas" })
+  if (!user) return res.status(401).json({ error: 'Credenciales incorrectas' })
 
   const passwordCorrect = user === null
     ? false
     : await bcrypt.compare(password, user.password)
 
-  if (!passwordCorrect) return res.status(401).json({ error: "Credenciales incorrectas" })
+  if (!passwordCorrect) return res.status(401).json({ error: 'Credenciales incorrectas' })
 
   const userToken = {
     username: user.username,

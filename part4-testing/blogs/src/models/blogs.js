@@ -1,4 +1,3 @@
-
 import mongoose, { Schema, model } from 'mongoose'
 
 const blogSchema = new Schema({
@@ -21,4 +20,3 @@ blogSchema.set('toJSON', {
 })
 
 export const Blog = model('Blog', blogSchema)
-

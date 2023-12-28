@@ -1,5 +1,5 @@
 export const palindrome = (string) => {
-  return string.split("").reverse().join("")
+  return string.split('').reverse().join('')
 }
 
 export const average = (array) => {
@@ -9,6 +9,3 @@ export const average = (array) => {
 
   return array.reduce(reducer, 0) / array.length
 }
-
-
-

@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose"
+import { Schema, model } from 'mongoose'
 
 const usersSchema = new Schema({
   username: {
@@ -28,6 +28,5 @@ usersSchema.set('toJSON', {
     delete returnedObject.__v
   }
 })
-
 
 export const User = model('User', usersSchema)
