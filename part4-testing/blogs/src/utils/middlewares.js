@@ -6,6 +6,7 @@ const requestLogger = (request, _response, next) => {
   console.log('Method:', request.method)
   console.log('Path:  ', request.path)
   console.log('Body:  ', request.body)
+  console.log('Lenguaje:', request.headers['accept-language'])
   console.log('---')
   next()
 }
