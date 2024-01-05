@@ -70,7 +70,7 @@ const App = () => {
       const createdBlog = await blogService.createBlog(blog)
       blogService.setToken(user.token)
       setBlogs(blogs.concat(createdBlog))
-      handleMessage(`a new blog you're NOT gonna need it! by ${blog.author}`, 'success')
+      handleMessage('Successfully created blog ', 'success')
     } catch (error) {
       handleMessage(`a new blog you're NOT gonna need it! by ${blog.author}`, 'error')
     }
