@@ -25,9 +25,12 @@ const App = () => {
   }, [])
 
   useEffect(() => {
-    noteService.getAll().then(initialNotes => {
+    const getAllNotes = async () => {
+      const initialNotes = await noteService.getAll()
       setNotes(initialNotes)
-    })
+    }
+
+    getAllNotes()
   }, [])
 
   const handleSubmit = async (loginObject) => {
