@@ -69,4 +69,16 @@ blogsRouter.delete('/:id', middlewares.userExtrator, async (req, res) => {
   }
 })
 
+blogsRouter.patch('/:id', middlewares.userExtrator, async (req, res) => {
+  const { id } = req.params
+  try {
+    const blog = await Blog.findOne({ _id: id })
+    const updatedBlog = await Blog.findOneAndUpdate({ _id: id }, { likes: blog.likes + 1 }, { new: true })
+    res.json(updatedBlog)
+  } catch (error) {
+    console.log(error.message)
+    res.status(500).json({ error: 'Error interno del servidor' })
+  }
+})
+
 export default blogsRouter

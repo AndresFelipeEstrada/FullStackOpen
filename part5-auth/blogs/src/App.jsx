@@ -57,9 +57,17 @@ const App = () => {
     } catch (error) {
       handleMessage(`a new blog you're NOT gonna need it! by ${newBlogObject.author}`, 'error')
     }
-
   }
 
+  const updateLikes = async (id) => {
+    try {
+      const updatedBlog = await blogService.updateBlog(id)
+      console.log(updatedBlog)
+      setBlogs(blogs.map((blog) => blog.id !== id ? blog : updatedBlog))
+    } catch (error) {
+      console.log('error al actualizar likes', error.message)
+    }
+  }
   const logout = () => {
     window.localStorage.clear()
     setUser(null)
@@ -73,14 +81,13 @@ const App = () => {
         <NewBlog createBlog={addBlog} />
       </Togglable>
 
-      {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} />
-      )}
     </>
   )
 
   const loginForm = () => (
-    <Login handleSubmit={handleSubmit} />
+    <Togglable label="Login">
+      <Login handleSubmit={handleSubmit} />
+    </Togglable>
   )
   return (
     <div>
@@ -88,6 +95,9 @@ const App = () => {
       <Notification message={message} />
       {user === null ? loginForm() : newBlogs()}
 
+      {blogs.map(blog =>
+        <Blog key={blog.id} blog={blog} updateLikes={updateLikes} />
+      )}
     </div>
   )
 }

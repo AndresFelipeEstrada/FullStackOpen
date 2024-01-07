@@ -1,3 +1,4 @@
+import "./login.css"
 import { useState } from "react"
 
 const Login = ({ handleSubmit }) => {
@@ -25,7 +26,7 @@ const Login = ({ handleSubmit }) => {
     <div>
       <h1>Log in to application</h1>
       <form onSubmit={handleLogin}>
-        <label>
+        <label className="login-input">
           username:
           <input
             type="text"
@@ -34,7 +35,7 @@ const Login = ({ handleSubmit }) => {
             onChange={handleOnChange} />
         </label>
 
-        <label>
+        <label className="login-input">
           password:
           <input
             type="password"
