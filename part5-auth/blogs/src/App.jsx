@@ -62,12 +62,22 @@ const App = () => {
   const updateLikes = async (id) => {
     try {
       const updatedBlog = await blogService.updateBlog(id)
-      console.log(updatedBlog)
       setBlogs(blogs.map((blog) => blog.id !== id ? blog : updatedBlog))
     } catch (error) {
       console.log('error al actualizar likes', error.message)
     }
   }
+
+  const deleteBlog = async (id) => {
+    try {
+      await blogService.deleteBlog(id)
+      setBlogs(blogs.filter((blog) => blog.id === id ? null : blog))
+      handleMessage('Blog borrado con exito', 'success')
+    } catch (error) {
+      handleMessage('Eror al intentar borrar un blog', 'error')
+    }
+  }
+
   const logout = () => {
     window.localStorage.clear()
     setUser(null)
@@ -89,14 +99,16 @@ const App = () => {
       <Login handleSubmit={handleSubmit} />
     </Togglable>
   )
+
+  const blogsSorted = blogs.sort((a, b) => b.likes - a.likes)
   return (
     <div>
       <h2>Blogs</h2>
       <Notification message={message} />
       {user === null ? loginForm() : newBlogs()}
 
-      {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} updateLikes={updateLikes} />
+      {blogsSorted.map(blog =>
+        <Blog key={blog.id} blog={blog} updateLikes={updateLikes} deleteBlog={deleteBlog} />
       )}
     </div>
   )

@@ -5,3 +5,17 @@
   padding-top: 10px;
   padding-left: 2px;
 }
+
+button {
+  cursor: pointer;
+}
+
+.remove-button {
+  display: flex;
+  border-radius: 5px;
+  border: 1px solid #000;
+  margin-top: 5px;
+  background: red;
+  font-size: 1em;
+  cursor: pointer;
+}
