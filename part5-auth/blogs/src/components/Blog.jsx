@@ -6,7 +6,6 @@ const Blog = ({ blog, updateLikes, deleteBlog }) => {
   const [showDetail, setShowDetail] = useState(false)
 
   const changeVisibility = () => setShowDetail(!showDetail)
-
   return (
     <div className='blog'>
       <div>
@@ -21,7 +20,7 @@ const Blog = ({ blog, updateLikes, deleteBlog }) => {
             <button onClick={() => updateLikes(blog.id)} style={{ height: '25px', display: 'block', marginTop: '10px', marginLeft: '10px' }}>+</button>
           </div>
           <strong>{blog.author}</strong>
-          <button className='remove-button' onClick={() => deleteBlog(blog.id)}>Remove</button>
+          <button className='remove-button' onClick={() => deleteBlog(blog.id, blog.user.username)}>Remove</button>
         </div>
       )}
     </div>

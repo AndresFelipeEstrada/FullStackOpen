@@ -68,7 +68,12 @@ const App = () => {
     }
   }
 
-  const deleteBlog = async (id) => {
+  const deleteBlog = async (id, username) => {
+
+    if (user.username !== username) {
+      return handleMessage('No tienes permisos para eliminar este blog', 'error')
+    }
+
     try {
       await blogService.deleteBlog(id)
       setBlogs(blogs.filter((blog) => blog.id === id ? null : blog))

@@ -1,4 +1,5 @@
-import { useState } from "react"
+import { useState } from 'react'
+import PropTypes from 'prop-types'
 
 const LoginForm = ({ handleSubmit }) => {
   const [login, setLogin] = useState({
@@ -10,7 +11,7 @@ const LoginForm = ({ handleSubmit }) => {
     const { name, value } = event.target
     setLogin(prev => ({
       ...prev,
-      [name]: value,
+      [name]: value
     }))
   }
 
@@ -42,6 +43,10 @@ const LoginForm = ({ handleSubmit }) => {
       <button type="submit">Login</button>
     </form>
   )
+}
+
+LoginForm.prototype = {
+  handleSubmit: PropTypes.func.isRequired
 }
 
 export default LoginForm

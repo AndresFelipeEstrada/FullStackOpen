@@ -3,7 +3,7 @@ import Note from './components/Note'
 import Notification from './components/Notification'
 import Footer from './components/Footer'
 import noteService from './services/notes'
-import loginService from "./services/login.js"
+import loginService from './services/login.js'
 import LoginForm from './components/LoginForm'
 import Togglable from './components/Togglable'
 import NoteForm from './components/NoteForm'
@@ -45,7 +45,7 @@ const App = () => {
       setErrorMessage('Error al hacer loggin')
       setTimeout(() => {
         setErrorMessage('')
-      }, 3000);
+      }, 3000)
     }
   }
 
