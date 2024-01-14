@@ -1,12 +1,12 @@
 import './app.css'
 import { useState, useEffect } from 'react'
-import Login from "./components/Login.jsx"
+import Login from './components/Login.jsx'
 import Notification from './components/Notification.jsx'
 import Blog from './components/Blog'
 import NewBlog from './components/NewBlog.jsx'
 import Togglable from './components/Togglable.jsx'
 import blogService from './services/blogs'
-import loginService from "./services/login.js"
+import loginService from './services/login.js'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -23,7 +23,6 @@ const App = () => {
     }
   }, [])
 
-
   useEffect(() => {
     blogService.getAll().then(blogs =>
       setBlogs(blogs)
@@ -34,7 +33,7 @@ const App = () => {
     setMessage({ message, type })
     setTimeout(() => {
       setMessage(null)
-    }, 3000);
+    }, 3000)
   }
 
   const handleSubmit = async (loginObject) => {
@@ -69,7 +68,6 @@ const App = () => {
   }
 
   const deleteBlog = async (id, username) => {
-
     if (user.username !== username) {
       return handleMessage('No tienes permisos para eliminar este blog', 'error')
     }

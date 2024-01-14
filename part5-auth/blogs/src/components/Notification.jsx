@@ -5,13 +5,13 @@ const Notification = ({ message }) => {
 
   const successStyle = {
     borderColor: 'green',
-    color: 'green',
-  };
+    color: 'green'
+  }
 
   const errorStyle = {
     borderColor: 'red',
-    color: 'red',
-  };
+    color: 'red'
+  }
   return (
     <div style={message.type === 'success' ? successStyle : errorStyle} className='message'>
       {message.message}

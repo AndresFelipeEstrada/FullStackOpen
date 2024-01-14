@@ -1,5 +1,5 @@
-import { useState } from "react"
-
+import { useState } from 'react'
+import PropTypes from 'prop-types'
 const NewBlog = ({ createBlog }) => {
   const [newBlog, setNewBlog] = useState({
     title: '',
@@ -12,7 +12,7 @@ const NewBlog = ({ createBlog }) => {
     const { name, value } = event.target
     setNewBlog(prev => ({
       ...prev,
-      [name]: value,
+      [name]: value
     }))
   }
 
@@ -58,6 +58,10 @@ const NewBlog = ({ createBlog }) => {
 
     </div>
   )
+}
+
+NewBlog.prototypes = {
+  createBlog: PropTypes.func.isRequired
 }
 
 export default NewBlog

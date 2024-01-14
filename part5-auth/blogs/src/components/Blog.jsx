@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import blogService from "../services/blogs.js"
+import PropTypes from 'prop-types'
 import './blog.css'
 
 const Blog = ({ blog, updateLikes, deleteBlog }) => {
@@ -9,7 +9,7 @@ const Blog = ({ blog, updateLikes, deleteBlog }) => {
   return (
     <div className='blog'>
       <div>
-        {blog.title}  <button onClick={changeVisibility}>{showDetail ? 'Hide' : "View"}</button>
+        {blog.title}  <button onClick={changeVisibility}>{showDetail ? 'Hide' : 'View'}</button>
       </div>
 
       {showDetail && (
@@ -25,6 +25,12 @@ const Blog = ({ blog, updateLikes, deleteBlog }) => {
       )}
     </div>
   )
+}
+
+Blog.propTypes = {
+  blog: PropTypes.object.isRequired,
+  updateLikes: PropTypes.func.isRequired,
+  deleteBlog: PropTypes.func.isRequired
 }
 
 export default Blog

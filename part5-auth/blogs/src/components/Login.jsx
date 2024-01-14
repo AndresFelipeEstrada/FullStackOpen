@@ -1,8 +1,8 @@
-import "./login.css"
-import { useState } from "react"
+import './login.css'
+import PropTypes from 'prop-types'
+import { useState } from 'react'
 
 const Login = ({ handleSubmit }) => {
-
   const [login, setLogin] = useState({
     username: '',
     password: ''
@@ -13,14 +13,13 @@ const Login = ({ handleSubmit }) => {
 
     setLogin(prev => ({
       ...prev,
-      [name]: value,
+      [name]: value
     }))
   }
 
   const handleLogin = (event) => {
     event.preventDefault()
     handleSubmit(login)
-
   }
   return (
     <div>
@@ -48,6 +47,10 @@ const Login = ({ handleSubmit }) => {
       </form>
     </div>
   )
+}
+
+Login.prototypes = {
+  handleSubmit: PropTypes.func.isRequired
 }
 
 export default Login
