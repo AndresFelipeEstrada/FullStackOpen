@@ -90,12 +90,17 @@ const App = () => {
       </Togglable>
     )
   }
+  const logout = () => {
+    window.localStorage.clear()
+    setUser(null)
+  }
   return (
     <div>
       <h1>Notes app</h1>
       <Notification message={errorMessage} />
 
       {user === null ? loginForm() : <div> <p>{user.name} logge-in</p> {note()} </div>}
+      {user === null ? '' : <button onClick={logout}>Logout</button>}
 
       <div>
         <button onClick={() => setShowAll(!showAll)}>
