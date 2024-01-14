@@ -9,17 +9,18 @@ const Blog = ({ blog, updateLikes, deleteBlog }) => {
   return (
     <div className='blog'>
       <div>
-        {blog.title}  <button onClick={changeVisibility}>{showDetail ? 'Hide' : 'View'}</button>
+        {blog.title} <strong>{blog.author}</strong>
+        <button onClick={changeVisibility}>{showDetail ? 'Hide' : 'View'}</button>
+
       </div>
 
       {showDetail && (
-        <div>
+        <div className='hidden-content'>
           <p>{blog.url}</p>
           <div style={{ display: 'flex' }}>
             <p> <strong>Likes:</strong> {blog.likes}</p>
             <button onClick={() => updateLikes(blog.id)} style={{ height: '25px', display: 'block', marginTop: '10px', marginLeft: '10px' }}>+</button>
           </div>
-          <strong>{blog.author}</strong>
           <button className='remove-button' onClick={() => deleteBlog(blog.id, blog.user.username)}>Remove</button>
         </div>
       )}
