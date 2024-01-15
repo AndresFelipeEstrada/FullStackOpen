@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import PropTypes from 'prop-types'
+
 const NewBlog = ({ createBlog }) => {
   const [newBlog, setNewBlog] = useState({
     title: '',
@@ -53,7 +54,7 @@ const NewBlog = ({ createBlog }) => {
           />
         </label>
 
-        <button type="submit">Create</button>
+        <button id='submit' type="submit">Create</button>
       </form>
 
     </div>
