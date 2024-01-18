@@ -42,7 +42,7 @@ const App = () => {
       noteService.setToken(returnedUser.token)
       setUser(returnedUser)
     } catch (error) {
-      setErrorMessage('Error al hacer loggin')
+      setErrorMessage('Wrong credentials')
       setTimeout(() => {
         setErrorMessage('')
       }, 3000)

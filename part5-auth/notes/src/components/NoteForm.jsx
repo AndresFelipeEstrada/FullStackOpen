@@ -11,7 +11,7 @@ const NoteForm = ({ createNote }) => {
     event.preventDefault()
     createNote({
       content: newNote,
-      important: Math.random() > 0.5
+      important: false
     })
     setNewNote('')
   }
@@ -21,8 +21,8 @@ const NoteForm = ({ createNote }) => {
 
       <div>
         <form onSubmit={addNote}>
-          <input value={newNote} onChange={handleNoteChange} />
-          <button type="submit">save</button>
+          <input id='newNote' value={newNote} onChange={handleNoteChange} />
+          <button id='newNoteSubmit' type="submit">save</button>
         </form>
       </div>
     </div>
