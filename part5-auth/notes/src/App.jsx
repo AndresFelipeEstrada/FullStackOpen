@@ -12,7 +12,7 @@ const App = () => {
   const [notes, setNotes] = useState([])
   const [showAll, setShowAll] = useState(true)
   const [errorMessage, setErrorMessage] = useState(null)
-
+  // TODO: prueba de todo
   const [user, setUser] = useState(null)
 
   const noteFormRef = useRef()

@@ -1,4 +1,10 @@
 describe('Note app', () => {
+it('then example', function() {
+  cy.get('button').then( buttons => {
+    console.log('number of buttons', buttons.length)
+    cy.wrap(buttons[0]).click()
+  })
+})
   beforeEach(() => {
     cy.request('POST', `${Cypress.env('BACKEND')}/testing/reset`)
     const user = {
@@ -26,12 +32,13 @@ describe('Note app', () => {
     describe('and a note exists', () => {
       beforeEach(() => {
         cy.createNote({ content: 'another note cypress', important: false })
+        cy.createNote({ content: 'second note', important: false })
+        cy.createNote({ content: 'third note', important: false })
       })
-      it('it can be made important', () => {
-        cy.contains('another note cypress')
-        cy.contains('make important').click()
-        cy.contains('another note cypress')
-        cy.contains('make not important')
+      it('one of those can be made important',() => {
+       cy.contains('second note').parent().find('button').as('theButton')
+       cy.get('@theButton').click()
+       cy.get('@theButton').should('contain','make not important')
       })
     })
   })
