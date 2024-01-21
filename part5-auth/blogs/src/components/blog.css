@@ -24,3 +24,10 @@ button {
 strong {
   padding-right: 5px;
 }
+
+.like-button {
+  height: 25px;
+  display: block;
+  margin-top: 10px;
+  margin-left: 10px;
+}

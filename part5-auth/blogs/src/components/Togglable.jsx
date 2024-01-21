@@ -10,7 +10,7 @@ const Togglable = (props) => {
   return (
     <div>
       <div style={{ display: visible ? 'none' : '' }}>
-        <button onClick={toggleVisibility}>{props.label}</button>
+        <button id='togglable-button' onClick={toggleVisibility}>{props.label}</button>
       </div>
 
       <div style={{ display: visible ? '' : 'none' }}>

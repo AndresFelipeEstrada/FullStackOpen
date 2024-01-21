@@ -2,11 +2,13 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
-    'jest/globals': true
+    'jest/globals': true,
+    'cypress/globals': true
   },
   extends: [
     'standard',
-    'plugin:react/recommended'
+    'plugin:react/recommended',
+    'plugin:cypress/recommended'
   ],
   overrides: [
     {
@@ -26,7 +28,7 @@ module.exports = {
     sourceType: 'module'
   },
   plugins: [
-    'react'
+    'react', 'cypress'
   ],
   rules: {
     indent: ['error', 2],

@@ -6,6 +6,8 @@ import blogsRouter from './controller/blogs.js'
 import usersRouter from './controller/users.js'
 import middlewares from './utils/middlewares.js'
 import loginRouter from './controller/login.js'
+import testingRouter from './controller/testing.js'
+
 const app = express()
 
 connect(config.URL).then(() => {
@@ -22,6 +24,10 @@ app.use(middlewares.getTokenFrom)
 app.use('/api/blogs', blogsRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
+
+if (process.env.NODE_ENV === 'development') {
+  app.use('/api/testing', testingRouter)
+}
 
 app.use(middlewares.errorHandler)
 app.use(middlewares.unknownEndpoint)

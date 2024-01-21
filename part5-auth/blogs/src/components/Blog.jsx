@@ -11,7 +11,6 @@ const Blog = ({ blog, updateLikes, deleteBlog }) => {
       <div>
         {blog.title} <strong>{blog.author}</strong>
         <button onClick={changeVisibility}>{showDetail ? 'Hide' : 'View'}</button>
-
       </div>
 
       {showDetail && (
@@ -19,9 +18,9 @@ const Blog = ({ blog, updateLikes, deleteBlog }) => {
           <p>{blog.url}</p>
           <div style={{ display: 'flex' }}>
             <p> <strong>Likes:</strong> {blog.likes}</p>
-            <button onClick={() => updateLikes(blog.id)} style={{ height: '25px', display: 'block', marginTop: '10px', marginLeft: '10px' }}>Like</button>
+            <button onClick={() => updateLikes(blog.id)} className='like-button' id='like-button'>Like</button>
           </div>
-          <button className='remove-button' onClick={() => deleteBlog(blog.id, blog.user.username)}>Remove</button>
+          <button id='delete-button' className='remove-button' onClick={() => deleteBlog(blog.id, blog.user.username)}>Remove</button>
         </div>
       )}
     </div>

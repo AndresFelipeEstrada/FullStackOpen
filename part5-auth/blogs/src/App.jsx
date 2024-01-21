@@ -68,7 +68,7 @@ const App = () => {
   }
 
   const deleteBlog = async (id, username) => {
-    if (user.username !== username) {
+    if (!user || user.username !== username) {
       return handleMessage('No tienes permisos para eliminar este blog', 'error')
     }
 
@@ -88,7 +88,7 @@ const App = () => {
 
   const newBlogs = () => (
     <>
-      <button onClick={logout}>Logout</button>
+      <button onClick={logout} id='logout-button'>Logout</button>
       <h3>{`Bienvenido ${user?.name}`}</h3>
       <Togglable label="New Blog">
         <NewBlog createBlog={addBlog} />
@@ -111,7 +111,7 @@ const App = () => {
       {user === null ? loginForm() : newBlogs()}
 
       {blogsSorted.map(blog =>
-        <Blog key={blog.id} blog={blog} updateLikes={updateLikes} deleteBlog={deleteBlog} />
+        <Blog key={`${blog.id}-newBlog`} blog={blog} updateLikes={updateLikes} deleteBlog={deleteBlog} />
       )}
     </div>
   )

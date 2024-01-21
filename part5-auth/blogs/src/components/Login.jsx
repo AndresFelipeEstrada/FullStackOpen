@@ -30,6 +30,7 @@ const Login = ({ handleSubmit }) => {
           <input
             type="text"
             name="username"
+            id="username"
             value={login.username}
             onChange={handleOnChange} />
         </label>
@@ -39,11 +40,12 @@ const Login = ({ handleSubmit }) => {
           <input
             type="password"
             name="password"
+            id="password"
             value={login.password}
             onChange={handleOnChange} />
         </label>
 
-        <button type="submit">Login</button>
+        <button id='login-submit' type="submit">Login</button>
       </form>
     </div>
   )
