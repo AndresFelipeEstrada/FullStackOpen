@@ -34,6 +34,15 @@ describe('Blog app', () => {
       cy.login({ username: 'juan', password: '123' })
       cy.createBlog({ title: 'Nuevo blog desde cypress', author: 'Juan Jose Mejia', url: 'www.facebook.com' })
     })
+    it('Blogs are ordered according to likes with the blog with the most likes first.', () => {
+      cy.createBlog({ title: 'Segundo blog desde cypress', author: 'Juan Jose Mejia', url: 'www.facebook.com' })
+      cy.contains('Segundo blog desde cypress')
+        .contains('View').click()
+        .get('#like-button').click().then(() => cy.contains('Likes: 1'))
+        .get('#like-button').click().then(() => cy.contains('Likes: 2'))
+      cy.get('.blog').eq(0).should('contain', 'Segundo blog desde cypress')
+      cy.get('.blog').eq(1).should('contain', 'Nuevo blog desde cypress')
+    })
 
     it('A blog can be created', () => {
       cy.get('#togglable-button').click()
@@ -56,8 +65,8 @@ describe('Blog app', () => {
     })
   })
 
-  describe('Otros usuarios no pueden borrar el blog', () => {
-    it('Other users cannot delete the blog', () => {
+  describe('Other users cannot delete the blog', () => {
+    it('Delete blog for other user', () => {
       cy.newUser({ username: 'juan', password: '123', name: 'Juan Jose Mejia' }).then(() => {
         cy.login({ username: 'juan', password: '123' })
         cy.createBlog({ title: 'Prueba desde cypress', author: 'Juan Jose Mejia', url: 'www.facebook.com' })
@@ -80,4 +89,5 @@ describe('Blog app', () => {
       })
     })
   })
+
 })
